@@ -7,44 +7,44 @@
 
 using namespace sf;
 
-Vector2f pos;//координаты курсора
+Vector2f pos;//РєРѕРѕСЂРґРёРЅР°С‚С‹ РєСѓСЂСЃРѕСЂР°
 Vector2i pixelPos;
 
 int main()
 {
 	srand(time(0));
 	RenderWindow window(VideoMode(350, 420), "three!");
-	std::vector<Texture>textures(count);//текстуры для фигурок
-	std::string name = "C:\\Users\\wellcat\\source\\repos\\match3\\Debug\\image\\characters_000";//имена файлов с текстурами
+	std::vector<Texture>textures(count);//С‚РµРєСЃС‚СѓСЂС‹ РґР»СЏ С„РёРіСѓСЂРѕРє
+	std::string name = "C:\\Users\\wellcat\\source\\repos\\match3\\Debug\\image\\characters_000";//РёРјРµРЅР° С„Р°Р№Р»РѕРІ СЃ С‚РµРєСЃС‚СѓСЂР°РјРё
 	Sprite sprite;
-	//звук
-	SoundBuffer matchBuffer[3];//создаём буфер для звука
+	//Р·РІСѓРє
+	SoundBuffer matchBuffer[3];//СЃРѕР·РґР°С‘Рј Р±СѓС„РµСЂ РґР»СЏ Р·РІСѓРєР°
 	std::string sound_name = "C:\\Users\\wellcat\\source\\repos\\match3\\Debug\\sounds\\match";
 	Sound match[3];
 	for (int i = 0; i < 3; i++)
 	{
 		sound_name = sound_name + std::to_string(i + 1) + ".ogg";
-		matchBuffer[i].loadFromFile(sound_name);//загружаем в него звук
+		matchBuffer[i].loadFromFile(sound_name);//Р·Р°РіСЂСѓР¶Р°РµРј РІ РЅРµРіРѕ Р·РІСѓРє
 		match[i].setBuffer(matchBuffer[i]);
 		match[i].setVolume(100);
 		sound_name = "C:\\Users\\wellcat\\source\\repos\\match3\\Debug\\sounds\\match";
 	}
-	Music music;//создаем объект музыки
-	music.openFromFile("C:\\Users\\wellcat\\source\\repos\\match3\\Debug\\sounds\\music.ogg");//загружаем файл
-	//шрифт
+	Music music;//СЃРѕР·РґР°РµРј РѕР±СЉРµРєС‚ РјСѓР·С‹РєРё
+	music.openFromFile("C:\\Users\\wellcat\\source\\repos\\match3\\Debug\\sounds\\music.ogg");//Р·Р°РіСЂСѓР¶Р°РµРј С„Р°Р№Р»
+	//С€СЂРёС„С‚
 	Font font;
 	font.loadFromFile("C:\\Users\\wellcat\\source\\repos\\match3\\Debug\\Khand-ExtraBold.otf");
-	//счёт игрока
+	//СЃС‡С‘С‚ РёРіСЂРѕРєР°
 	Text account("", font, 45);
 	account.setString(std::to_string(score));
 	account.setFillColor(Color::Black);
 	account.setPosition(285, 350);
-	//кнопка выхода из игры
+	//РєРЅРѕРїРєР° РІС‹С…РѕРґР° РёР· РёРіСЂС‹
 	Text enter("", font, 30);
 	enter.setString("ENTER");
 	enter.setFillColor(Color::Black);
 	enter.setPosition(15, 370);
-	//оформление интерфейса
+	//РѕС„РѕСЂРјР»РµРЅРёРµ РёРЅС‚РµСЂС„РµР№СЃР°
 	Text play("", font, 60);
 	play.setString("PLAY");
 	play.setFillColor(Color::White);
@@ -61,23 +61,23 @@ int main()
 	black.loadFromFile("C:\\Users\\wellcat\\source\\repos\\match3\\Debug\\image\\black.jpg");
 	Sprite black_sp(black);
 	black_sp.setColor(Color(0, 0, 0, 230));
-	//подсветка при нажатии
+	//РїРѕРґСЃРІРµС‚РєР° РїСЂРё РЅР°Р¶Р°С‚РёРё
 	Texture white;
 	white.loadFromFile("C:\\Users\\wellcat\\source\\repos\\match3\\Debug\\image\\white_1.png");
 	Sprite white_sp(white);
 	white_sp.setColor(Color(250, 250, 250, 180));
 	white_sp.setPosition(150, 500);
-	//если игра только началась, то
-	if (mode)//если начали новую игру
+	//РµСЃР»Рё РёРіСЂР° С‚РѕР»СЊРєРѕ РЅР°С‡Р°Р»Р°СЃСЊ, С‚Рѕ
+	if (mode)//РµСЃР»Рё РЅР°С‡Р°Р»Рё РЅРѕРІСѓСЋ РёРіСЂСѓ
 	{
-		//отгружаем текстуры
+		//РѕС‚РіСЂСѓР¶Р°РµРј С‚РµРєСЃС‚СѓСЂС‹
 		for (int i = 0; i < count; i++)
 		{
 			name = name + std::to_string(i + 1) + ".png";
 			textures[i].loadFromFile(name);
 			name = "C:\\Users\\wellcat\\source\\repos\\match3\\Debug\\image\\characters_000";
 		}
-		//заполняем сетку 
+		//Р·Р°РїРѕР»РЅСЏРµРј СЃРµС‚РєСѓ 
 		for (int i = 0; i < 10; i++)
 		{
 			for (int j = 0; j < 10; j++)
@@ -89,7 +89,7 @@ int main()
 				grid[i][j].y = double(i * ts);
 			}
 		}
-		//удаляем три одинаковых до генерации сетки
+		//СѓРґР°Р»СЏРµРј С‚СЂРё РѕРґРёРЅР°РєРѕРІС‹С… РґРѕ РіРµРЅРµСЂР°С†РёРё СЃРµС‚РєРё
 		for (int i = 0; i < 10; i++)
 			for (int j = 0; j < 10; j++)
 			{
@@ -127,31 +127,31 @@ int main()
 				}
 			}
 	}
-	while (window.isOpen())//пока оно открыто
+	while (window.isOpen())//РїРѕРєР° РѕРЅРѕ РѕС‚РєСЂС‹С‚Рѕ
 	{
-		Event event;//объект класса событий
-		while (window.pollEvent(event))//пока происходят события
+		Event event;//РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° СЃРѕР±С‹С‚РёР№
+		while (window.pollEvent(event))//РїРѕРєР° РїСЂРѕРёСЃС…РѕРґСЏС‚ СЃРѕР±С‹С‚РёСЏ
 		{
-			if (event.type == Event::Closed)//если нажимаем на крест, то окно закрывается
+			if (event.type == Event::Closed)//РµСЃР»Рё РЅР°Р¶РёРјР°РµРј РЅР° РєСЂРµСЃС‚, С‚Рѕ РѕРєРЅРѕ Р·Р°РєСЂС‹РІР°РµС‚СЃСЏ
 				window.close();
-			if (event.type == Event::MouseButtonPressed && move)//если нажата клавиша мыши и игровое поле включено
+			if (event.type == Event::MouseButtonPressed && move)//РµСЃР»Рё РЅР°Р¶Р°С‚Р° РєР»Р°РІРёС€Р° РјС‹С€Рё Рё РёРіСЂРѕРІРѕРµ РїРѕР»Рµ РІРєР»СЋС‡РµРЅРѕ
 				if (event.key.code == Mouse::Left)
-				{//а именно левая
+				{//Р° РёРјРµРЅРЅРѕ Р»РµРІР°СЏ
 					sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 					sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-					if (enter.getGlobalBounds().contains(mousePosF))//выход из игры
+					if (enter.getGlobalBounds().contains(mousePosF))//РІС‹С…РѕРґ РёР· РёРіСЂС‹
 					{
-						mode = true;//мы в главном меню
-						move = false;//и нельзя двигать фишки
+						mode = true;//РјС‹ РІ РіР»Р°РІРЅРѕРј РјРµРЅСЋ
+						move = false;//Рё РЅРµР»СЊР·СЏ РґРІРёРіР°С‚СЊ С„РёС€РєРё
 					}
 					else
 					{
-						pixelPos = Mouse::getPosition(window);//забираем коорд курсора
+						pixelPos = Mouse::getPosition(window);//Р·Р°Р±РёСЂР°РµРј РєРѕРѕСЂРґ РєСѓСЂСЃРѕСЂР°
 						pos = window.mapPixelToCoords(pixelPos);
 						if (!swap) select++;
 						sx = pos.y / ts;
 						sy = pos.x / ts;
-						//выделяем спрайт белым
+						//РІС‹РґРµР»СЏРµРј СЃРїСЂР°Р№С‚ Р±РµР»С‹Рј
 						sprite.setPosition(grid[sx][sy].x, grid[sx][sy].y);
 						sprite.setTexture(textures[grid[sx][sy].kind]);
 						white_sp.setPosition(grid[sx][sy].x, grid[sx][sy].y);
@@ -164,29 +164,29 @@ int main()
 					sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
 					if (play.getGlobalBounds().contains(mousePosF) and mode)
 					{
-						move = true;//можно двигать фишки
-						mode = false;//вышли из главного меню
-						score = 0;//обнулили счёт для следующей игры
+						move = true;//РјРѕР¶РЅРѕ РґРІРёРіР°С‚СЊ С„РёС€РєРё
+						mode = false;//РІС‹С€Р»Рё РёР· РіР»Р°РІРЅРѕРіРѕ РјРµРЅСЋ
+						score = 0;//РѕР±РЅСѓР»РёР»Рё СЃС‡С‘С‚ РґР»СЏ СЃР»РµРґСѓСЋС‰РµР№ РёРіСЂС‹
 					}
 				}
 		}
-		if (select == 1)//если просто выбрали фишку, то сохраняем ее координаты
+		if (select == 1)//РµСЃР»Рё РїСЂРѕСЃС‚Рѕ РІС‹Р±СЂР°Р»Рё С„РёС€РєСѓ, С‚Рѕ СЃРѕС…СЂР°РЅСЏРµРј РµРµ РєРѕРѕСЂРґРёРЅР°С‚С‹
 		{
 			pr_x = pos.y / ts;
 			pr_y = pos.x / ts;
 		}
 		else if (select == 2)
 		{
-			x = pos.y / ts;//выбрали вторую фишку, сохраняем координаты
+			x = pos.y / ts;//РІС‹Р±СЂР°Р»Рё РІС‚РѕСЂСѓСЋ С„РёС€РєСѓ, СЃРѕС…СЂР°РЅСЏРµРј РєРѕРѕСЂРґРёРЅР°С‚С‹
 			y = pos.x / ts;
-			if (abs(x - pr_x) + abs(y - pr_y) == 1)//если фишки находятся рядом сверху-слева-справа-внизу
+			if (abs(x - pr_x) + abs(y - pr_y) == 1)//РµСЃР»Рё С„РёС€РєРё РЅР°С…РѕРґСЏС‚СЃСЏ СЂСЏРґРѕРј СЃРІРµСЂС…Сѓ-СЃР»РµРІР°-СЃРїСЂР°РІР°-РІРЅРёР·Сѓ
 			{
-				//меняем их текстуры
+				//РјРµРЅСЏРµРј РёС… С‚РµРєСЃС‚СѓСЂС‹
 				kind_r = grid[pr_x][pr_y].kind;
 				grid[pr_x][pr_y].kind = grid[x][y].kind;
 				grid[x][y].kind = kind_r;
-				//проверка линий, где поменялись фишки, в зависимости от того, куда добавили/откуда убрали
-				if (y != 9 and y != 8)//в начале, ряд
+				//РїСЂРѕРІРµСЂРєР° Р»РёРЅРёР№, РіРґРµ РїРѕРјРµРЅСЏР»РёСЃСЊ С„РёС€РєРё, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ С‚РѕРіРѕ, РєСѓРґР° РґРѕР±Р°РІРёР»Рё/РѕС‚РєСѓРґР° СѓР±СЂР°Р»Рё
+				if (y != 9 and y != 8)//РІ РЅР°С‡Р°Р»Рµ, СЂСЏРґ
 				{
 					if (grid[x][y].kind == grid[x][y + 1].kind)
 						if (grid[x][y].kind == grid[x][y + 2].kind)
@@ -195,10 +195,10 @@ int main()
 							grid[x][y].kind = -1;
 							grid[x][y + 1].kind = -1;
 							grid[x][y + 2].kind = -1;
-							mat = true;//для последующего воспроизведения звука удаления тройки
+							mat = true;//РґР»СЏ РїРѕСЃР»РµРґСѓСЋС‰РµРіРѕ РІРѕСЃРїСЂРѕРёР·РІРµРґРµРЅРёСЏ Р·РІСѓРєР° СѓРґР°Р»РµРЅРёСЏ С‚СЂРѕР№РєРё
 						}
 				}
-				if (y != 0 and y != 9)//посередине, ряд
+				if (y != 0 and y != 9)//РїРѕСЃРµСЂРµРґРёРЅРµ, СЂСЏРґ
 				{
 					if (grid[x][y].kind == grid[x][y + 1].kind)
 						if (grid[x][y].kind == grid[x][y - 1].kind)
@@ -210,7 +210,7 @@ int main()
 							mat = true;
 						}
 				}
-				if (y != 0 and y != 1)//в конце, ряд
+				if (y != 0 and y != 1)//РІ РєРѕРЅС†Рµ, СЂСЏРґ
 				{
 					if (grid[x][y].kind == grid[x][y - 1].kind)
 						if (grid[x][y].kind == grid[x][y - 2].kind)
@@ -222,7 +222,7 @@ int main()
 							mat = true;
 						}
 				}
-				if (x != 8 and x != 9)//в начале, столбец
+				if (x != 8 and x != 9)//РІ РЅР°С‡Р°Р»Рµ, СЃС‚РѕР»Р±РµС†
 				{
 					if (grid[x][y].kind == grid[x + 1][y].kind)
 						if (grid[x][y].kind == grid[x + 2][y].kind)
@@ -234,7 +234,7 @@ int main()
 							mat = true;
 						}
 				}
-				if (x != 0 and x != 9)//в середине, столбец
+				if (x != 0 and x != 9)//РІ СЃРµСЂРµРґРёРЅРµ, СЃС‚РѕР»Р±РµС†
 				{
 					if (grid[x][y].kind == grid[x + 1][y].kind)
 						if (grid[x][y].kind == grid[x - 1][y].kind)
@@ -246,7 +246,7 @@ int main()
 							mat = true;
 						}
 				}
-				if (x != 1 and x != 9)//в конце, столбец
+				if (x != 1 and x != 9)//РІ РєРѕРЅС†Рµ, СЃС‚РѕР»Р±РµС†
 				{
 					if (grid[x][y].kind == grid[x - 1][y].kind)
 						if (grid[x][y].kind == grid[x - 2][y].kind)
@@ -258,8 +258,8 @@ int main()
 							mat = true;
 						}
 				}
-				//если у обоих сдвинутых фишек закрывается ряд
-				if (pr_y != 9 and pr_y != 8)//в начале, ряд
+				//РµСЃР»Рё Сѓ РѕР±РѕРёС… СЃРґРІРёРЅСѓС‚С‹С… С„РёС€РµРє Р·Р°РєСЂС‹РІР°РµС‚СЃСЏ СЂСЏРґ
+				if (pr_y != 9 and pr_y != 8)//РІ РЅР°С‡Р°Р»Рµ, СЂСЏРґ
 				{
 					if (grid[pr_x][pr_y].kind == grid[pr_x][pr_y + 1].kind)
 						if (grid[pr_x][pr_y].kind == grid[pr_x][pr_y + 2].kind)
@@ -271,7 +271,7 @@ int main()
 							mat = true;
 						}
 				}
-				if (pr_y != 0 and pr_y != 9)//посередине, ряд
+				if (pr_y != 0 and pr_y != 9)//РїРѕСЃРµСЂРµРґРёРЅРµ, СЂСЏРґ
 				{
 					if (grid[pr_x][pr_y].kind == grid[pr_x][pr_y + 1].kind)
 						if (grid[pr_x][pr_y].kind == grid[pr_x][pr_y - 1].kind)
@@ -283,7 +283,7 @@ int main()
 							mat = true;
 						}
 				}
-				if (pr_y != 0 and pr_y != 1)//в конце, ряд
+				if (pr_y != 0 and pr_y != 1)//РІ РєРѕРЅС†Рµ, СЂСЏРґ
 				{
 					if (grid[pr_x][pr_y].kind == grid[pr_x][pr_y - 1].kind)
 						if (grid[pr_x][pr_y].kind == grid[pr_x][pr_y - 2].kind)
@@ -295,7 +295,7 @@ int main()
 							mat = true;
 						}
 				}
-				if (pr_x != 8 and pr_x != 9)//в начале, столбец
+				if (pr_x != 8 and pr_x != 9)//РІ РЅР°С‡Р°Р»Рµ, СЃС‚РѕР»Р±РµС†
 				{
 					if (grid[pr_x][pr_y].kind == grid[pr_x + 1][pr_y].kind)
 						if (grid[pr_x][pr_y].kind == grid[pr_x + 2][pr_y].kind)
@@ -307,7 +307,7 @@ int main()
 							mat = true;
 						}
 				}
-				if (pr_x != 0 and pr_x != 9)//в середине, столбец
+				if (pr_x != 0 and pr_x != 9)//РІ СЃРµСЂРµРґРёРЅРµ, СЃС‚РѕР»Р±РµС†
 				{
 					if (grid[pr_x][pr_y].kind == grid[pr_x + 1][pr_y].kind)
 						if (grid[pr_x][pr_y].kind == grid[pr_x - 1][pr_y].kind)
@@ -319,7 +319,7 @@ int main()
 							mat = true;
 						}
 				}
-				if (pr_x != 1 and pr_x != 9)//в конце, столбец
+				if (pr_x != 1 and pr_x != 9)//РІ РєРѕРЅС†Рµ, СЃС‚РѕР»Р±РµС†
 				{
 					if (grid[pr_x][pr_y].kind == grid[pr_x - 1][pr_y].kind)
 						if (grid[pr_x][pr_y].kind == grid[pr_x - 2][pr_y].kind)
@@ -331,7 +331,7 @@ int main()
 							mat = true;
 						}
 				}
-				//если при генерации появилась линия из трёх, то уничтожаем её 
+				//РµСЃР»Рё РїСЂРё РіРµРЅРµСЂР°С†РёРё РїРѕСЏРІРёР»Р°СЃСЊ Р»РёРЅРёСЏ РёР· С‚СЂС‘С…, С‚Рѕ СѓРЅРёС‡С‚РѕР¶Р°РµРј РµС‘ 
 				for (int i = 0; i < 10; i++)
 					for (int j = 0; j < 10; j++)
 					{
@@ -378,7 +378,7 @@ int main()
 							}
 						}
 					}
-				if (mat)//если уничтожили линию из трёх, то воспроизводим звук
+				if (mat)//РµСЃР»Рё СѓРЅРёС‡С‚РѕР¶РёР»Рё Р»РёРЅРёСЋ РёР· С‚СЂС‘С…, С‚Рѕ РІРѕСЃРїСЂРѕРёР·РІРѕРґРёРј Р·РІСѓРє
 				{
 					match[rand() % 3].play();
 					mat = false;
@@ -390,7 +390,7 @@ int main()
 			else select = 1;
 		}
 		window.clear(Color::White);
-		{//проверка, если вдруг сгенерировался ряд из трёх. счёт не меняется, поскольку это мб случайно из-за rand()
+		{//РїСЂРѕРІРµСЂРєР°, РµСЃР»Рё РІРґСЂСѓРі СЃРіРµРЅРµСЂРёСЂРѕРІР°Р»СЃСЏ СЂСЏРґ РёР· С‚СЂС‘С…. СЃС‡С‘С‚ РЅРµ РјРµРЅСЏРµС‚СЃСЏ, РїРѕСЃРєРѕР»СЊРєСѓ СЌС‚Рѕ РјР± СЃР»СѓС‡Р°Р№РЅРѕ РёР·-Р·Р° rand()
 			for (int i = 0; i < 10; i++)
 				for (int j = 0; j < 10; j++)
 				{
@@ -430,30 +430,30 @@ int main()
 					}
 				}
 		}
-		account.setString(std::to_string(score));//пересчитываем счёт
-		window.draw(account);//и выводим его 
-		window.draw(enter);//кнопка выхода
+		account.setString(std::to_string(score));//РїРµСЂРµСЃС‡РёС‚С‹РІР°РµРј СЃС‡С‘С‚
+		window.draw(account);//Рё РІС‹РІРѕРґРёРј РµРіРѕ 
+		window.draw(enter);//РєРЅРѕРїРєР° РІС‹С…РѕРґР°
 		for (int i = 0; i < 10; i++)
 			for (int j = 0; j < 10; j++)
 			{
 				if (grid[i][j].kind != -1)
-				{//просто выводим фишки, если не надо их удалять из-за совпадения
+				{//РїСЂРѕСЃС‚Рѕ РІС‹РІРѕРґРёРј С„РёС€РєРё, РµСЃР»Рё РЅРµ РЅР°РґРѕ РёС… СѓРґР°Р»СЏС‚СЊ РёР·-Р·Р° СЃРѕРІРїР°РґРµРЅРёСЏ
 					sprite.setPosition(grid[i][j].x, grid[i][j].y);
 					sprite.setTexture(textures[grid[i][j].kind]);
 					window.draw(sprite);
 				}
-				else//удаляем те фишки, которые образовали линию из трёх
+				else//СѓРґР°Р»СЏРµРј С‚Рµ С„РёС€РєРё, РєРѕС‚РѕСЂС‹Рµ РѕР±СЂР°Р·РѕРІР°Р»Рё Р»РёРЅРёСЋ РёР· С‚СЂС‘С…
 					grid[i][j].kind = rand() % count;
 			}
-		if (music.getStatus() == Music::Stopped)//зацикливание музыки
+		if (music.getStatus() == Music::Stopped)//Р·Р°С†РёРєР»РёРІР°РЅРёРµ РјСѓР·С‹РєРё
 		{
 			music.openFromFile("C:\\Users\\wellcat\\source\\repos\\match3\\Debug\\sounds\\music.ogg");
 			music.play();
 		}
-		window.draw(white_sp);//текстура для выделения фишек
-		if (mode)//если игра только началась
+		window.draw(white_sp);//С‚РµРєСЃС‚СѓСЂР° РґР»СЏ РІС‹РґРµР»РµРЅРёСЏ С„РёС€РµРє
+		if (mode)//РµСЃР»Рё РёРіСЂР° С‚РѕР»СЊРєРѕ РЅР°С‡Р°Р»Р°СЃСЊ
 		{
-			if (score > maximum)//меняем лучший резульат
+			if (score > maximum)//РјРµРЅСЏРµРј Р»СѓС‡С€РёР№ СЂРµР·СѓР»СЊР°С‚
 			{
 				maximum = score;
 				r_best = "BEST: ";
@@ -461,12 +461,12 @@ int main()
 				best.setString(r_best);
 			}
 			acc.setString(std::to_string(score));
-			window.draw(black_sp);//затеменение экрана
-			window.draw(play);//кнопка "начать игру"
-			window.draw(best);//лучший результат
+			window.draw(black_sp);//Р·Р°С‚РµРјРµРЅРµРЅРёРµ СЌРєСЂР°РЅР°
+			window.draw(play);//РєРЅРѕРїРєР° "РЅР°С‡Р°С‚СЊ РёРіСЂСѓ"
+			window.draw(best);//Р»СѓС‡С€РёР№ СЂРµР·СѓР»СЊС‚Р°С‚
 			if (score != 0)
 			{
-				window.draw(acc);//нынешний результат
+				window.draw(acc);//РЅС‹РЅРµС€РЅРёР№ СЂРµР·СѓР»СЊС‚Р°С‚
 			}
 		}
 		window.display();
